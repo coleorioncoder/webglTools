@@ -312,3 +312,5 @@ WebGLStuffObj.prototype.cleanup = function () {
         this.gl.deleteProgram(this.shaderProg);
     }
 }
+
+export WebGLStuffObj;
