@@ -263,6 +263,7 @@ WebGLStuffObj.prototype.initUniforms = function (uniformInitFunc) {
 }
 WebGLStuffObj.prototype.display = function (lineWidthParam, drawOrderParam, clearBackgroundParam) {
     let clearBackground = clearBackgroundParam ?? true;
+    let drawOrder = drawOrderParam ?? "tlp";
     if (clearBackground) {
         this.gl.clear(this.gl.COLOR_BUFFER_BIT|this.gl.DEPTH_BUFFER_BIT);
     }
@@ -272,25 +273,40 @@ WebGLStuffObj.prototype.display = function (lineWidthParam, drawOrderParam, clea
     //finally initialize variables for and draw graphics
     let indexCount, type, offset;
     //gl.drawElements(gl.SHAPE_TYPE, indexCount, type, offset);
-    this.gl.drawElements(this.gl.TRIANGLES, this.triangleIndexCount, this.gl.UNSIGNED_SHORT, (this.pointIndexCount+this.lineIndexCount)*2);
+    for (var i = 0; i < 3; i ++) {
+        switch (drawOrder.charAt(i).toLowerCase()) {
+            case "p":
+                this.gl.drawElements(this.gl.POINTS, this.pointIndexCount, this.gl.UNSIGNED_SHORT, 0);
+            break;
+            case "l":
+                this.gl.drawElements(this.gl.LINES, this.lineIndexCount, this.gl.UNSIGNED_SHORT, this.pointIndexCount * 2);
+            break;
+            case "t":
+                this.gl.drawElements(this.gl.TRIANGLES, this.triangleIndexCount, this.gl.UNSIGNED_SHORT, (this.pointIndexCount+this.lineIndexCount)*2);
+            break;
+            default:
+            
+        }
+    }
+    // this.gl.drawElements(this.gl.TRIANGLES, this.triangleIndexCount, this.gl.UNSIGNED_SHORT, (this.pointIndexCount+this.lineIndexCount)*2);
     
     
     
-    //code to render lines
+    // //code to render lines
     
-    //initialize variables for and draw lines
-    // indexCount = dataObj.lineIndices.length;
-    // type = gl.UNSIGNED_SHORT;
-    // offset = dataObj.pointIndices.length * 2;
-    this.gl.drawElements(this.gl.LINES, this.lineIndexCount, this.gl.UNSIGNED_SHORT, this.pointIndexCount * 2);
+    // //initialize variables for and draw lines
+    // // indexCount = dataObj.lineIndices.length;
+    // // type = gl.UNSIGNED_SHORT;
+    // // offset = dataObj.pointIndices.length * 2;
+    // this.gl.drawElements(this.gl.LINES, this.lineIndexCount, this.gl.UNSIGNED_SHORT, this.pointIndexCount * 2);
     
     
-    //code to render triangles
-    //initialize variables for and draw graphics
-    // indexCount = dataObj.pointIndices.length;
-    // type = gl.UNSIGNED_SHORT;
-    // offset = 0;
-    this.gl.drawElements(this.gl.POINTS, this.pointIndexCount, this.gl.UNSIGNED_SHORT, 0);
+    // //code to render triangles
+    // //initialize variables for and draw graphics
+    // // indexCount = dataObj.pointIndices.length;
+    // // type = gl.UNSIGNED_SHORT;
+    // // offset = 0;
+    // this.gl.drawElements(this.gl.POINTS, this.pointIndexCount, this.gl.UNSIGNED_SHORT, 0);
 }
 WebGLStuffObj.prototype.cleanup = function () {
     this.gl.useProgram(null);
