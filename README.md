@@ -16,7 +16,7 @@ var frameworkObj = new WebGLStuffObj(canvNode, glContextsArray*, canvWidth*, can
  * canvHeight* - optional height of the resolution of the canvas
 
 
-###initShaderProgram
+### initShaderProgram
 Method to take care of all of the stuff necessary in creating and compiling a webGL shader program
 
 Syntax: 
