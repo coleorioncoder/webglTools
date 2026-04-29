@@ -329,4 +329,4 @@ WebGLStuffObj.prototype.cleanup = function () {
     }
 }
 
-export WebGLStuffObj;
+//export WebGLStuffObj;
