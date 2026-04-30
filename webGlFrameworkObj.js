@@ -270,7 +270,7 @@ WebGLStuffObj.prototype.getCurrentPixelData = function () {
 WebGLStuffObj.prototype.getCurrentPixelBytes = function () {
     let currPixelByteData = new Uint8Array(this.gl.drawingBufferWidth * this.gl.drawingBufferHeight * 4,
 ));
-    this.gl.readPixels(0, 0, this.gl.drawingBufferWidth, this.gl.drawingBufferHeight, this.gl.RGBA, this.gl.UNSIGNED_BYTE, currPixelData);
+    this.gl.readPixels(0, 0, this.gl.drawingBufferWidth, this.gl.drawingBufferHeight, this.gl.RGBA, this.gl.UNSIGNED_BYTE, currPixelByteData);
     return currPixelByteData;
 }
 WebGLStuffObj.prototype.display = function (lineWidthParam, drawOrderParam, clearBackgroundParam) {
