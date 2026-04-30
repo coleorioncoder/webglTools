@@ -261,6 +261,18 @@ WebGLStuffObj.prototype.initUniforms = function (uniformInitFunc) {
     }
     uniformInitFunc(this.gl, this.shaderProg);
 }
+WebGLStuffObj.prototype.getCurrentPixelData = function () {
+    let currPixelData = new Float32Array(this.gl.drawingBufferWidth * this.gl.drawingBufferHeight * 4,
+));
+    this.gl.readPixels(0, 0, this.gl.drawingBufferWidth, this.gl.drawingBufferHeight, this.gl.RGBA, this.gl.FLOAT, currPixelData);
+    return currPixelData;
+}
+WebGLStuffObj.prototype.getCurrentPixelBytes = function () {
+    let currPixelByteData = new Uint8Array(this.gl.drawingBufferWidth * this.gl.drawingBufferHeight * 4,
+));
+    this.gl.readPixels(0, 0, this.gl.drawingBufferWidth, this.gl.drawingBufferHeight, this.gl.RGBA, this.gl.UNSIGNED_BYTE, currPixelData);
+    return currPixelByteData;
+}
 WebGLStuffObj.prototype.display = function (lineWidthParam, drawOrderParam, clearBackgroundParam) {
     let clearBackground = clearBackgroundParam ?? true;
     let drawOrder = drawOrderParam ?? "tlp";
